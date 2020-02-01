@@ -6,7 +6,8 @@
         } else if (isFunction(element)) {
             return element(props);
         } else {
-            return handleHTMLelement(element, children);
+            console.log(props)
+            return handleHTMLelement(element, props, children);
         }
     }
 
@@ -15,7 +16,8 @@
         return component.render();
     }
 
-    function handleHTMLelement(element, children) {
+    function handleHTMLelement(element, props, children) {
+        console.log(element)
         const anElement = document.createElement(element);
         children.forEach(child => {
             if (typeof child === "object") {
@@ -25,10 +27,23 @@
                 anElement.innerHTML += child;
             }
         });
+        console.log(props)
+        Object.keys(props).forEach(propName => {
+            console.log(propName)
+            if (/^on.*$/.test(propName)) {
+                anElement.addEventListener(
+                    propName.substring(2).toLowerCase(),
+                    props[propName]
+                );
+            } else {
+                anElement.setAttribute(propName, props[propName]);
+            }
+        })
         return anElement;
     }
 
     function createElement(element, props, ...children) {
+        console.log(element, props)
         return anElement(element, props, children)
     }
 
