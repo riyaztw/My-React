@@ -2,25 +2,30 @@
 
     function anElement(element, children) {
         if (isClass(element)) {
-            const component = new element();
-            return component.render();
-        } else if (typeof element === "function") {
+            return handleClass(element);
+        } else if (isFunction(element)) {
             return element();
         } else {
-            const anElement = document.createElement(element);
-            children.forEach(child => {
-                if (typeof child === "object") {
-                    anElement.appendChild(child);
-                } else {
-                    anElement.innerHTML += child;
-                }
-            });
-            return anElement;
+            return handleHTMLelement(element, children);
         }
     }
 
-    function isClass(element) {
-        return typeof element === "function" && /^class\s/.test(Function.prototype.toString.call(element));
+    function handleClass(classComponent) {
+        const component = new classComponent();
+        return component.render();
+    }
+
+    function handleHTMLelement(element, children) {
+        const anElement = document.createElement(element);
+        children.forEach(child => {
+            if (typeof child === "object") {
+                anElement.appendChild(child);
+            }
+            else {
+                anElement.innerHTML += child;
+            }
+        });
+        return anElement;
     }
 
     function createElement(element, props, ...children) {
