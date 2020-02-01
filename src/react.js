@@ -6,7 +6,6 @@
         } else if (isFunction(element)) {
             return element(props);
         } else {
-            console.log(props)
             return handleHTMLelement(element, props, children);
         }
     }
@@ -17,29 +16,28 @@
     }
 
     function handleHTMLelement(element, props, children) {
-        console.log(element)
         const anElement = document.createElement(element);
-        children.forEach(child => {
-            if (typeof child === "object") {
-                anElement.appendChild(child);
-            }
-            else {
-                anElement.innerHTML += child;
-            }
-        });
-        console.log(props)
-        Object.keys(props).forEach(propName => {
-            console.log(propName)
-            if (/^on.*$/.test(propName)) {
-                anElement.addEventListener(
-                    propName.substring(2).toLowerCase(),
-                    props[propName]
-                );
-            } else {
-                anElement.setAttribute(propName, props[propName]);
-            }
-        })
+        children.forEach(child => appendChild(anElement, child));
+        Object.entries(props).forEach(([propName, propValue]) => appendProp(anElement, propName, propValue))
         return anElement;
+    }
+
+    function appendChild(element, child) {
+        if (typeof child === "object") {
+            element.appendChild(child);
+        }
+        else {
+            element.innerHTML += child;
+        }
+    }
+
+    function appendProp(element, propName, propValue) {
+        if (shouldAddEventListener(propName)) {
+            element.addEventListener(propName.substring(2).toLowerCase(), propValue);
+        }
+        else {
+            element.setAttribute(propName, propValue);
+        }
     }
 
     function createElement(element, props, ...children) {

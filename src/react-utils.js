@@ -5,3 +5,7 @@ function isClass(element) {
 function isFunction(element) {
     return typeof element === "function";
 }
+
+function shouldAddEventListener(property) {
+    return /^on.*$/.test(property);
+}
