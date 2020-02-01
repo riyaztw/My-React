@@ -1,7 +1,10 @@
 (() => {
 
     function anElement(element, children) {
-        if (typeof element === "function") {
+        if (isClass(element)) {
+            const component = new element();
+            return component.render();
+        } else if (typeof element === "function") {
             return element();
         } else {
             const anElement = document.createElement(element);
@@ -14,6 +17,10 @@
             });
             return anElement;
         }
+    }
+
+    function isClass(element) {
+        return typeof element === "function" && /^class\s/.test(Function.prototype.toString.call(element));
     }
 
     function createElement(element, props, ...children) {

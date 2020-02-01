@@ -22,7 +22,14 @@
             HelloFunctionalComponent,
             "I'm a parent component"
         )
-        ReactDOM.render(parent, document.getElementById("root"))
+
+        class ClassComponent {
+            render() {
+                return React.createElement("h3", null, "Class component");
+            }
+        }
+        const classComponent = React.createElement(ClassComponent, null, null);
+        ReactDOM.render(classComponent, document.getElementById("root"))
     </script>
 </body>
 
