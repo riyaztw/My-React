@@ -2,7 +2,7 @@
 
     function anElement(element, props, children) {
         if (isClass(element)) {
-            return handleClass(element);
+            return handleClass(element, props);
         } else if (isFunction(element)) {
             return element(props);
         } else {
@@ -10,8 +10,8 @@
         }
     }
 
-    function handleClass(classComponent) {
-        const component = new classComponent();
+    function handleClass(classComponent, props) {
+        const component = new classComponent(props);
         return component.render();
     }
 
@@ -32,8 +32,15 @@
         return anElement(element, props, children)
     }
 
+    class Component {
+        constructor(props) {
+            this.props = props;
+        }
+    }
+
     window.React = {
-        createElement
+        createElement,
+        Component,
     }
 
     window.ReactDOM = {

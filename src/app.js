@@ -22,4 +22,20 @@ const FunctionalComponentWithProps = ({ name }) => {
     return React.createElement("p", null, `Functional component with prop -${name}`);
 }
 const functionalComponentWithProp = React.createElement(FunctionalComponentWithProps, { name: "Riyaz" }, null)
-ReactDOM.render(functionalComponentWithProp, document.getElementById("root"))
+
+class ClassComponentWithProps extends React.Component {
+    constructor(props) {
+        super(props)
+    }
+    render() {
+        return React.createElement(
+            "h3",
+            null,
+            `Functional component with prop -${this.props.name}`
+        )
+    }
+
+}
+
+const classComponentWithProp = React.createElement(ClassComponentWithProps, { name: "Riyaz Pasha" }, null);
+ReactDOM.render(classComponentWithProp, document.getElementById("root"))
