@@ -17,4 +17,9 @@ class ClassComponent {
     }
 }
 const classComponent = React.createElement(ClassComponent, null, null);
-ReactDOM.render(classComponent, document.getElementById("root"))
+
+const FunctionalComponentWithProps = ({ name }) => {
+    return React.createElement("p", null, `Functional component with prop -${name}`);
+}
+const functionalComponentWithProp = React.createElement(FunctionalComponentWithProps, { name: "Riyaz" }, null)
+ReactDOM.render(functionalComponentWithProp, document.getElementById("root"))

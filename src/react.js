@@ -1,10 +1,10 @@
 (() => {
 
-    function anElement(element, children) {
+    function anElement(element, props, children) {
         if (isClass(element)) {
             return handleClass(element);
         } else if (isFunction(element)) {
-            return element();
+            return element(props);
         } else {
             return handleHTMLelement(element, children);
         }
@@ -29,7 +29,7 @@
     }
 
     function createElement(element, props, ...children) {
-        return anElement(element, children)
+        return anElement(element, props, children)
     }
 
     window.React = {
