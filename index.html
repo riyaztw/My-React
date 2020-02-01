@@ -10,8 +10,12 @@
     <script src="./src/react.js"></script>
     <div id="root"></div>
     <script>
+        const Hello = function () {
+            return React.createElement("p", null, "Functional Component");
+        }
         const helloWorld = React.createElement("h1", null, "Hello World")
-        ReactDOM.render(helloWorld, document.getElementById("root"))
+        const HelloFunctionalComponent = React.createElement(Hello, null, null);
+        ReactDOM.render(HelloFunctionalComponent, document.getElementById("root"))
     </script>
 </body>
 
